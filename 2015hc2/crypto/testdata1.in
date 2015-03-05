@@ -1,0 +1,12 @@
+6
+7 0
+54442579 0
+87686618 1
+52890068 1
+43273692 0
+57108864 0
+
+
+/// FILE FORMAT ///
+1st line    : number of tests
+other lines : given password | expected output

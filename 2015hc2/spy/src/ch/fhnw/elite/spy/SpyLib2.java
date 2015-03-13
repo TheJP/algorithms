@@ -3,7 +3,7 @@ package ch.fhnw.elite.spy;
 import java.util.*;
 import java.io.*;
 
-class SpyLib1{
+class SpyLib2{
 
   /** Call this method from your Heidi code, to send a hint to the marmots.
    *  It causes the Marmot's receiveHint method to be called. */
@@ -49,13 +49,13 @@ class SpyLib1{
           if (o instanceof Long) {
             Long id = (Long) o;
             System.err.print("Marmot received query for " + id);
-            boolean answer = Spy1.isSpy(id);
+            boolean answer = Spy2.isSpy(id);
             System.err.println(", answering " + answer);
             out.writeObject(new Boolean(answer));
           } else if (o instanceof Byte) {
             Byte info = (Byte) o;
             System.err.println("Marmot received hint " + info);
-            Spy1.receiveHint(info.byteValue());
+            Spy2.receiveHint(info.byteValue());
           } else {
             System.out.println("Heidi must not send gibberish");
             System.exit(1);
@@ -88,7 +88,7 @@ class SpyLib1{
       System.err.println("Heidi process started...");
       Scanner s = null;
       try {
-        s = new Scanner(new FileInputStream("testdata01.in"));
+        s = new Scanner(new FileInputStream("testdata02.in"));
         _nScans = s.nextInt();
         int nTests = s.nextInt();
         _remainingHints = 2 * _nScans;
@@ -108,7 +108,7 @@ class SpyLib1{
             break;
           case 1:
             System.err.println("Heidi scanning Marmot " + id);
-            Spy1.scanMarmot(id);
+            Spy2.scanMarmot(id);
             break;
           default:
             throw new AssertionError("Illegal operation in input file");
@@ -131,7 +131,7 @@ class SpyLib1{
 
     public MarmotProcess() throws IOException {
       System.err.println("About to launch a new marmot");
-      ProcessBuilder pb = new java.lang.ProcessBuilder("java", "-cp", "bin", "ch.fhnw.elite.spy.SpyLib1", "marmot");
+      ProcessBuilder pb = new java.lang.ProcessBuilder("java", "-cp", "bin", "ch.fhnw.elite.spy.SpyLib2", "marmot");
       pb.redirectError(java.lang.ProcessBuilder.Redirect.INHERIT);
       Process p = pb.start();
 

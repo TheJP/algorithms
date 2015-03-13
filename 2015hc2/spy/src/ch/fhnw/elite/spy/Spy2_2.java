@@ -1,13 +1,22 @@
 package ch.fhnw.elite.spy;
 
-import java.util.LinkedList;
-import java.util.Queue;
 
 //////////////////////
 // SUBMIT THIS FILE //
 //////////////////////
 
-class Spy2 {
+class Spy2_2 {
+
+	//Heidis data
+	private static int scans = Integer.MAX_VALUE;
+	private static int maxId = Integer.MIN_VALUE;
+
+	//Marmots data
+	private static int pos = 0;
+
+	//Shared data
+	private static final boolean[] isMarmot = new boolean[17000000];
+
 	/**
 	 * Runs in Heidi's process This function is called to indicate that the
 	 * marmot with the given ID is diligent. It should call SpyLib2.sendHint to
@@ -16,18 +25,23 @@ class Spy2 {
 	 * the value N in the problem statement)
 	 */
 	static void scanMarmot(long id) {
-		int s = 21; // 1. shift right
-		boolean force = false;
-		while (s >= 0) {
-			byte send = (byte) ((id >>> s) & 0x7f);
-			if (s == 0) { send = (byte) (send | 0x80); }
-			if (force || send != 0) { SpyLib2.sendHint(send); force = true; }
-			s -= 7;
+		isMarmot[(int)id] = true;
+		if(id > maxId){ maxId = (int)id; }
+		if(scans == Integer.MAX_VALUE){ scans = SpyLib2_2.nScans(); }
+		--scans;
+		if(scans <= 0){
+			//send hints now
+			for(int i = 0; i <= maxId; i += 8){
+				byte b = 0;
+				for(int j = 0; j < 8; ++j){
+					if(isMarmot[i+j]){
+						b = (byte) (b | (1<<j));
+					}
+				}
+				SpyLib2_2.sendHint(b);
+			}
 		}
 	}
-
-	private static final boolean[] isMarmot = new boolean[17000000];
-	private static final Queue<Byte> bytes = new LinkedList<>();
 
 	/**
 	 * Runs in the marmots' process This function is called whenever
@@ -35,16 +49,10 @@ class Spy2 {
 	 * to sendHint.
 	 */
 	static void receiveHint(byte hint) {
-		if((hint & 0x80) == 0){
-			bytes.offer(hint);
-		} else {
-			int id = 0;
-			while(!bytes.isEmpty()){
-				byte b = bytes.poll();
-				id = (id << 7) | b;
-			}
-			id = (id << 7) | (hint & 0x7f);
-			isMarmot[id] = true;
+		for(int i = 0; i < 8; ++i){
+			boolean b = (hint & 1) == 1; //is a 1 bit at position 0
+			isMarmot[pos++] = b;
+			hint >>>= 1;
 		}
 	}
 

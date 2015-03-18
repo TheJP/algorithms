@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{978FD2DA-B2E9-4D9E-B435-565CFE90EF74}</ProjectGuid>
-    <RootNamespace>NPOWMGarden</RootNamespace>
+    <ProjectGuid>{3A09A1CB-4B16-4863-8020-0E067269829E}</ProjectGuid>
+    <RootNamespace>FOUROWFourInARow</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -64,7 +64,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="garden.cpp" />
+    <ClCompile Include="fourinarow.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

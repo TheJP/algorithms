@@ -7,6 +7,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sieve", "Sieve\Sieve.vcxpro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ONPTransformTheExpression", "ONPTransformTheExpression\ONPTransformTheExpression.vcxproj", "{E37F1E45-CF9C-463C-BC70-EEA288DE56E4}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NPOWMGarden", "NPOWMGarden\NPOWMGarden.vcxproj", "{978FD2DA-B2E9-4D9E-B435-565CFE90EF74}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FOUROWFourInARow", "FOUROWFourInARow\FOUROWFourInARow.vcxproj", "{3A09A1CB-4B16-4863-8020-0E067269829E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -21,6 +25,14 @@ Global
 		{E37F1E45-CF9C-463C-BC70-EEA288DE56E4}.Debug|Win32.Build.0 = Debug|Win32
 		{E37F1E45-CF9C-463C-BC70-EEA288DE56E4}.Release|Win32.ActiveCfg = Release|Win32
 		{E37F1E45-CF9C-463C-BC70-EEA288DE56E4}.Release|Win32.Build.0 = Release|Win32
+		{978FD2DA-B2E9-4D9E-B435-565CFE90EF74}.Debug|Win32.ActiveCfg = Debug|Win32
+		{978FD2DA-B2E9-4D9E-B435-565CFE90EF74}.Debug|Win32.Build.0 = Debug|Win32
+		{978FD2DA-B2E9-4D9E-B435-565CFE90EF74}.Release|Win32.ActiveCfg = Release|Win32
+		{978FD2DA-B2E9-4D9E-B435-565CFE90EF74}.Release|Win32.Build.0 = Release|Win32
+		{3A09A1CB-4B16-4863-8020-0E067269829E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{3A09A1CB-4B16-4863-8020-0E067269829E}.Debug|Win32.Build.0 = Debug|Win32
+		{3A09A1CB-4B16-4863-8020-0E067269829E}.Release|Win32.ActiveCfg = Release|Win32
+		{3A09A1CB-4B16-4863-8020-0E067269829E}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

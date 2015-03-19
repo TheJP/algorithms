@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FOUROWFourInARow", "FOUROWF
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PT07YIsItATree", "PT07YIsItATree\PT07YIsItATree.vcxproj", "{5D3520CB-E9F0-4BEB-B741-E911242A03D5}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BITMAPBitmap", "BITMAPBitmap\BITMAPBitmap.vcxproj", "{4BCED287-8133-474D-B1C3-C2A096DECAFF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -39,6 +41,10 @@ Global
 		{5D3520CB-E9F0-4BEB-B741-E911242A03D5}.Debug|Win32.Build.0 = Debug|Win32
 		{5D3520CB-E9F0-4BEB-B741-E911242A03D5}.Release|Win32.ActiveCfg = Release|Win32
 		{5D3520CB-E9F0-4BEB-B741-E911242A03D5}.Release|Win32.Build.0 = Release|Win32
+		{4BCED287-8133-474D-B1C3-C2A096DECAFF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4BCED287-8133-474D-B1C3-C2A096DECAFF}.Debug|Win32.Build.0 = Debug|Win32
+		{4BCED287-8133-474D-B1C3-C2A096DECAFF}.Release|Win32.ActiveCfg = Release|Win32
+		{4BCED287-8133-474D-B1C3-C2A096DECAFF}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

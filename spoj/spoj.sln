@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NPOWMGarden", "NPOWMGarden\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FOUROWFourInARow", "FOUROWFourInARow\FOUROWFourInARow.vcxproj", "{3A09A1CB-4B16-4863-8020-0E067269829E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PT07YIsItATree", "PT07YIsItATree\PT07YIsItATree.vcxproj", "{5D3520CB-E9F0-4BEB-B741-E911242A03D5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -33,6 +35,10 @@ Global
 		{3A09A1CB-4B16-4863-8020-0E067269829E}.Debug|Win32.Build.0 = Debug|Win32
 		{3A09A1CB-4B16-4863-8020-0E067269829E}.Release|Win32.ActiveCfg = Release|Win32
 		{3A09A1CB-4B16-4863-8020-0E067269829E}.Release|Win32.Build.0 = Release|Win32
+		{5D3520CB-E9F0-4BEB-B741-E911242A03D5}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5D3520CB-E9F0-4BEB-B741-E911242A03D5}.Debug|Win32.Build.0 = Debug|Win32
+		{5D3520CB-E9F0-4BEB-B741-E911242A03D5}.Release|Win32.ActiveCfg = Release|Win32
+		{5D3520CB-E9F0-4BEB-B741-E911242A03D5}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

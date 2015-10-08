@@ -19,8 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{99C0F241-5260-47FA-A503-0DB4E5473ABC}</ProjectGuid>
-    <RootNamespace>My00100ThreeNPlusOne</RootNamespace>
+    <ProjectGuid>{121E3E08-473B-4D03-9E70-7E094FAA75EC}</ProjectGuid>
+    <RootNamespace>My10189Minesweeper</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -74,7 +74,6 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -119,14 +118,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="threenplusone.cpp" />
+    <ClCompile Include="minesweeper.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="sample.in">
-      <DeploymentContent>false</DeploymentContent>
-    </None>
-    <None Include="sample2.in" />
-    <None Include="sample3.in" />
+    <None Include="sample.in" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

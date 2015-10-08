@@ -15,13 +15,11 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="sample.in" />
-    <None Include="sample2.in" />
-    <None Include="sample3.in" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="threenplusone.cpp">
+    <ClCompile Include="minesweeper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="sample.in" />
   </ItemGroup>
 </Project>

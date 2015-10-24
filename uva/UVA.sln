@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "00100ThreeNPlusOne", "00100
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "10189Minesweeper", "10189Minesweeper\10189Minesweeper.vcxproj", "{121E3E08-473B-4D03-9E70-7E094FAA75EC}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "10267GraphicalEditor", "10267GraphicalEditor\10267GraphicalEditor.vcxproj", "{B30DFC93-D73C-4771-BE5E-23CBEA59FDF5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{121E3E08-473B-4D03-9E70-7E094FAA75EC}.Release|x64.Build.0 = Release|x64
 		{121E3E08-473B-4D03-9E70-7E094FAA75EC}.Release|x86.ActiveCfg = Release|Win32
 		{121E3E08-473B-4D03-9E70-7E094FAA75EC}.Release|x86.Build.0 = Release|Win32
+		{B30DFC93-D73C-4771-BE5E-23CBEA59FDF5}.Debug|x64.ActiveCfg = Debug|x64
+		{B30DFC93-D73C-4771-BE5E-23CBEA59FDF5}.Debug|x64.Build.0 = Debug|x64
+		{B30DFC93-D73C-4771-BE5E-23CBEA59FDF5}.Debug|x86.ActiveCfg = Debug|Win32
+		{B30DFC93-D73C-4771-BE5E-23CBEA59FDF5}.Debug|x86.Build.0 = Debug|Win32
+		{B30DFC93-D73C-4771-BE5E-23CBEA59FDF5}.Release|x64.ActiveCfg = Release|x64
+		{B30DFC93-D73C-4771-BE5E-23CBEA59FDF5}.Release|x64.Build.0 = Release|x64
+		{B30DFC93-D73C-4771-BE5E-23CBEA59FDF5}.Release|x86.ActiveCfg = Release|Win32
+		{B30DFC93-D73C-4771-BE5E-23CBEA59FDF5}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

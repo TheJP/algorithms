@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "10189Minesweeper", "10189Mi
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "10267GraphicalEditor", "10267GraphicalEditor\10267GraphicalEditor.vcxproj", "{B30DFC93-D73C-4771-BE5E-23CBEA59FDF5}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "10054TheNecklace", "10054TheNecklace\10054TheNecklace.vcxproj", "{02CB9C85-5A7D-4AAF-8C7C-66D21C01CB8C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -41,6 +43,14 @@ Global
 		{B30DFC93-D73C-4771-BE5E-23CBEA59FDF5}.Release|x64.Build.0 = Release|x64
 		{B30DFC93-D73C-4771-BE5E-23CBEA59FDF5}.Release|x86.ActiveCfg = Release|Win32
 		{B30DFC93-D73C-4771-BE5E-23CBEA59FDF5}.Release|x86.Build.0 = Release|Win32
+		{02CB9C85-5A7D-4AAF-8C7C-66D21C01CB8C}.Debug|x64.ActiveCfg = Debug|x64
+		{02CB9C85-5A7D-4AAF-8C7C-66D21C01CB8C}.Debug|x64.Build.0 = Debug|x64
+		{02CB9C85-5A7D-4AAF-8C7C-66D21C01CB8C}.Debug|x86.ActiveCfg = Debug|Win32
+		{02CB9C85-5A7D-4AAF-8C7C-66D21C01CB8C}.Debug|x86.Build.0 = Debug|Win32
+		{02CB9C85-5A7D-4AAF-8C7C-66D21C01CB8C}.Release|x64.ActiveCfg = Release|x64
+		{02CB9C85-5A7D-4AAF-8C7C-66D21C01CB8C}.Release|x64.Build.0 = Release|x64
+		{02CB9C85-5A7D-4AAF-8C7C-66D21C01CB8C}.Release|x86.ActiveCfg = Release|Win32
+		{02CB9C85-5A7D-4AAF-8C7C-66D21C01CB8C}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

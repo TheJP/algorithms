@@ -15,13 +15,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ge.cpp">
+    <ClCompile Include="necklace.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="sample.in" />
     <None Include="sample2.in" />
-    <None Include="sample3.in" />
   </ItemGroup>
 </Project>

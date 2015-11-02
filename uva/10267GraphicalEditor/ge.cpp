@@ -87,6 +87,7 @@ int main(void) {
                 }
 				break;
 			default:
+                getline(cin, name);
 				break;
 		}
 	} while (cmd != 'X');

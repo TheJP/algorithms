@@ -6,8 +6,17 @@ using namespace std;
 const int Max = 10000;
 const int Count = Max + 5;
 
-set<int>* persons[Count];
-set<set<int>*> sets;
+class Party {
+    public:
+        set<int> members;
+        set<Party*> enemies;
+        bool isEnemy(Party * party) {
+            return enemies.find(party) != enemies.end();
+        };
+};
+
+Party* persons[Count];
+set<Party*> parties;
 
 int main(void) {
     int n, cmd, a, b;
@@ -19,33 +28,60 @@ int main(void) {
             //Set friends
             case 1:
                 if (persons[a] == nullptr && persons[b] == nullptr) {
-                    auto tmp = new set<int>();
-                    tmp->insert(a); tmp->insert(b);
-                    sets.insert(tmp);
+                    auto tmp = new Party();
+                    tmp->members.insert(a); tmp->members.insert(b);
+                    parties.insert(tmp);
                     persons[a] = tmp;
                     persons[b] = tmp;
                 } else if (persons[a] == nullptr && persons[b] != nullptr) {
-                    persons[b]->insert(a);
+                    persons[b]->members.insert(a);
                     persons[a] = persons[b];
                 } else if (persons[a] != nullptr && persons[b] == nullptr) {
-                    persons[a]->insert(b);
+                    persons[a]->members.insert(b);
                     persons[b] = persons[a];
                 } else {
-                    //TODO: Handle impossible friendships!
-                    int sizeA = persons[a]->size();
-                    int sizeB = persons[b]->size();
-                    auto small = sizeA < sizeB ? persons[a] : persons[b];
-                    auto big = sizeA < sizeB ? persons[b] : persons[a];
-                    for (auto itr = small->begin(); itr != small->end(); ++itr) {
-                        persons[*itr] = big;
-                        big->insert(*itr);
+                    if (persons[a]->isEnemy(persons[b])) {
+                        cout << "-1" << endl;
+                    } else {
+                        int sizeA = persons[a]->members.size() + persons[a]->enemies.size();
+                        int sizeB = persons[b]->members.size() + persons[b]->enemies.size();
+                        auto small = sizeA < sizeB ? persons[a] : persons[b];
+                        auto big = sizeA < sizeB ? persons[b] : persons[a];
+                        for (auto itr = small->members.begin(); itr != small->members.end(); ++itr) {
+                            persons[*itr] = big;
+                            big->members.insert(*itr);
+                        }
+                        for (auto itr = small->enemies.begin(); itr != small->enemies.end(); ++itr) {
+                            (*itr)->enemies.insert(big);
+                            (*itr)->enemies.erase(small);
+                            big->enemies.insert(*itr);
+                        }
+                        //TODO: merge enemies
+                        parties.erase(small);
+                        delete small;
                     }
-                    sets.erase(small);
-                    delete small;
                 }
                 break;
             //Set enemies
             case 2:
+                if (persons[a] == nullptr) {
+                    auto tmp = new Party();
+                    tmp->members.insert(a);
+                    persons[a] = tmp;
+                    parties.insert(tmp);
+                }
+                if (persons[b] == nullptr) {
+                    auto tmp = new Party();
+                    tmp->members.insert(b);
+                    persons[b] = tmp;
+                    parties.insert(tmp);
+                }
+                if (persons[a] == persons[b]) {
+                    cout << "-1" << endl;
+                } else {
+                    persons[a]->enemies.insert(persons[b]);
+                    persons[b]->enemies.insert(persons[a]);
+                }
                 break;
             //Are friends
             case 3:
@@ -54,17 +90,14 @@ int main(void) {
                 break;
              //Are enemies
             case 4:
-                //TODO: Handle special case: different sets, but not enemy (yet)
-                if (a == b || persons[a] == nullptr || persons[b] == nullptr || persons[a] == persons[b]) { cout << '0' << endl; }
+                if (a == b || persons[a] == nullptr || persons[b] == nullptr || persons[a] == persons[b] || !persons[a]->isEnemy(persons[b])) { cout << '0' << endl; }
                 else { cout << '1' << endl; }
                 break;
             default: break;
         }
     } while (cmd != 0);
-    while (!sets.empty())
-    {
-        auto tmp = sets.back(); sets.pop_back();
-        delete tmp;
+    for (auto itr = parties.begin(); itr != parties.end(); ++itr) {
+        delete *itr;
     }
     return 0;
 }

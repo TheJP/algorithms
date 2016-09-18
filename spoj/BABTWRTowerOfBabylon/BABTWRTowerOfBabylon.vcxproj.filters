@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="feynman.cpp">
+    <ClCompile Include="towerofbabylon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -19,8 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{516A7CE1-B99B-4CB9-9916-EBEAA8D9C6DE}</ProjectGuid>
-    <RootNamespace>SAMER08FFeynman</RootNamespace>
+    <ProjectGuid>{8EE8A7D6-417A-4817-BB0C-A4E3612D4215}</ProjectGuid>
+    <RootNamespace>BABTWRTowerOfBabylon</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -110,7 +110,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="feynman.cpp" />
+    <ClCompile Include="towerofbabylon.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -39,6 +39,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SAMER08FFeynman", "SAMER08F
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BABTWRTowerOfBabylon", "BABTWRTowerOfBabylon\BABTWRTowerOfBabylon.vcxproj", "{8EE8A7D6-417A-4817-BB0C-A4E3612D4215}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HOTELSHotelsAlongTheCroatianCoast", "HOTELSHotelsAlongTheCroatianCoast\HOTELSHotelsAlongTheCroatianCoast.vcxproj", "{9737ACF5-4577-4F07-A77A-733DD165A0F6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -161,6 +163,14 @@ Global
 		{8EE8A7D6-417A-4817-BB0C-A4E3612D4215}.Release|Win32.Build.0 = Release|Win32
 		{8EE8A7D6-417A-4817-BB0C-A4E3612D4215}.Release|x64.ActiveCfg = Release|x64
 		{8EE8A7D6-417A-4817-BB0C-A4E3612D4215}.Release|x64.Build.0 = Release|x64
+		{9737ACF5-4577-4F07-A77A-733DD165A0F6}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9737ACF5-4577-4F07-A77A-733DD165A0F6}.Debug|Win32.Build.0 = Debug|Win32
+		{9737ACF5-4577-4F07-A77A-733DD165A0F6}.Debug|x64.ActiveCfg = Debug|x64
+		{9737ACF5-4577-4F07-A77A-733DD165A0F6}.Debug|x64.Build.0 = Debug|x64
+		{9737ACF5-4577-4F07-A77A-733DD165A0F6}.Release|Win32.ActiveCfg = Release|Win32
+		{9737ACF5-4577-4F07-A77A-733DD165A0F6}.Release|Win32.Build.0 = Release|Win32
+		{9737ACF5-4577-4F07-A77A-733DD165A0F6}.Release|x64.ActiveCfg = Release|x64
+		{9737ACF5-4577-4F07-A77A-733DD165A0F6}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

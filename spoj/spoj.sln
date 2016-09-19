@@ -45,6 +45,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TWENDSTwoEnds", "TWENDSTwoE
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TRTTreatsForTheCows", "TRTTreatsForTheCows\TRTTreatsForTheCows.vcxproj", "{EFC3458C-BBBF-45AC-8EBC-F430DD807AA5}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ADDREVAddingReversedNumbers", "ADDREVAddingReversedNumbers\ADDREVAddingReversedNumbers.vcxproj", "{79ADA726-9C6F-41F0-BD97-E0B696208E5F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -191,6 +193,14 @@ Global
 		{EFC3458C-BBBF-45AC-8EBC-F430DD807AA5}.Release|Win32.Build.0 = Release|Win32
 		{EFC3458C-BBBF-45AC-8EBC-F430DD807AA5}.Release|x64.ActiveCfg = Release|x64
 		{EFC3458C-BBBF-45AC-8EBC-F430DD807AA5}.Release|x64.Build.0 = Release|x64
+		{79ADA726-9C6F-41F0-BD97-E0B696208E5F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{79ADA726-9C6F-41F0-BD97-E0B696208E5F}.Debug|Win32.Build.0 = Debug|Win32
+		{79ADA726-9C6F-41F0-BD97-E0B696208E5F}.Debug|x64.ActiveCfg = Debug|x64
+		{79ADA726-9C6F-41F0-BD97-E0B696208E5F}.Debug|x64.Build.0 = Debug|x64
+		{79ADA726-9C6F-41F0-BD97-E0B696208E5F}.Release|Win32.ActiveCfg = Release|Win32
+		{79ADA726-9C6F-41F0-BD97-E0B696208E5F}.Release|Win32.Build.0 = Release|Win32
+		{79ADA726-9C6F-41F0-BD97-E0B696208E5F}.Release|x64.ActiveCfg = Release|x64
+		{79ADA726-9C6F-41F0-BD97-E0B696208E5F}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

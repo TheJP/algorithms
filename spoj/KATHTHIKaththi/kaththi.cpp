@@ -4,6 +4,8 @@
 #include <queue>
 #include <cstring>
 #include <unordered_set>
+#include <utility>
+#include <functional>
 
 using namespace std;
 
@@ -11,6 +13,7 @@ typedef vector<unordered_set<int>> graph;
 
 string map[1001];
 int labels[1001][1001];
+int cost[1000001];
 graph g;
 const int permutations[4][2] = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
 
@@ -19,6 +22,26 @@ struct point {
     point() {}
     point(int x, int y) { this->x = x; this->y = y; }
 };
+
+//Finding shortest path from 0 to target
+int dijkstra(int target) {
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> queue;
+    queue.push(pair<int, int>(0, 0));
+    while (!queue.empty())
+    {
+        pair<int, int> current = queue.top(); queue.pop();
+        if (current.first < cost[current.second]) {
+            cost[current.second] = current.first;
+            if (current.second == target) { return current.first; }
+            for (auto itr = g[current.second].begin(); itr != g[current.second].end(); ++itr) {
+                if (current.first + 1 < cost[*itr]) {
+                    queue.push(pair<int, int>(current.first + 1, *itr));
+                }
+            }
+        }
+    }
+    return -1; //Target not reachable
+}
 
 int main(void) {
     int n, rows, cols;
@@ -33,9 +56,11 @@ int main(void) {
         }
 
         //Putput
+        //Creat graph
         int label = 0;
         g = graph();
         memset(labels, -1, sizeof(labels));
+        fill_n(cost, 1000001, 5000);
         for (int y = 0; y < rows; ++y) {
             for (int x = 0; x < cols; ++x) {
 
@@ -67,7 +92,11 @@ int main(void) {
             }
         }
 
-        cout << endl;
+        //Shortest path
+        int result = dijkstra(labels[rows - 1][cols - 1]);
+
+        //Output
+        cout << result << endl;
     }
     return 0;
 }

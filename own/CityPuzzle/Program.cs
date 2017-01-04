@@ -10,7 +10,10 @@ namespace CityPuzzle
     {
         private enum Rotations { No, Two, Four }
 
+        private static bool showSolutionsOnConsole = false;
         private const int FieldDimension = 7;
+
+        private static int solutionCount = 0;
 
         //Create field with border
         private static bool[][] field = Enumerable.Range(0, FieldDimension + 2).Select(y =>
@@ -18,11 +21,13 @@ namespace CityPuzzle
                 x == 0 || y == 0 || x == FieldDimension + 1 || y == FieldDimension + 1
             ).ToArray()).ToArray();
 
-        //Stores the location of pieces while searching solutions
-        private static (int x, int y, int rotation)[] locations = new (int, int, int)[pieces.Length];
-
-        //All found solutions are stored here
-        private static List<(int x, int y, int rotation)[]> solutions = new List<(int x, int y, int rotation)[]>();
+        //Colors used to draw solutions
+        private static ConsoleColor[] colors = new ConsoleColor[]
+        {
+            ConsoleColor.White, ConsoleColor.Yellow, ConsoleColor.Magenta, ConsoleColor.Red,
+            ConsoleColor.Cyan, ConsoleColor.Green, ConsoleColor.Blue, ConsoleColor.DarkGreen,
+            ConsoleColor.DarkRed
+        };
 
         //Create pieces in all needed rotations
         private static bool[][][][] pieces =
@@ -95,6 +100,11 @@ namespace CityPuzzle
             }, Rotations.Two),
         };
 
+        //Stores the location of pieces while searching solutions
+        private static (int y, int x, int rotation)[] locations = new(int, int, int)[pieces.Length];
+
+        private static List<(int y, int x, int rotation)[]> solutions = new List<(int, int, int)[]>();
+
         private static bool[][][] CreatePiece(bool[,] piece, Rotations rotations = Rotations.Four)
         {
             var results = new List<bool[][]>();
@@ -151,19 +161,87 @@ namespace CityPuzzle
         {
             for(int rotation = 0; rotation < pieces[piece].Length; ++rotation)
             {
-                for(int y = 1; y < FieldDimension + 1 - pieces[piece][rotation].Length + 1; ++y)
+                bool[][] p = pieces[piece][rotation];
+                for (int y = 1; y < FieldDimension + 1 - p.Length + 1; ++y)
                 {
-                    for(int x = 1; x < FieldDimension + 1 - pieces[piece][rotation][0].Length + 1; ++x)
+                    for(int x = 1; x < FieldDimension + 1 - p[0].Length + 1; ++x)
                     {
-
+                        if (ValidLocation(y, x, p))
+                        {
+                            SetPiece(y, x, p, true);
+                            locations[piece] = (y, x, rotation);
+                            if (piece + 1 >= pieces.Length)
+                            {
+                                //Found solution
+                                ++solutionCount;
+                                solutions.Add(((int, int, int)[])locations.Clone());
+                                if (showSolutionsOnConsole) { PrintSolution(); }
+                            }
+                            else { FindSolutions(piece + 1); }
+                            SetPiece(y, x, p, false);
+                        }
                     }
                 }
             }
         }
 
+        /// <summary>Check if the given coordinates are valid for the given piece on the field</summary>
+        private static bool ValidLocation(int y, int x, bool[][] piece)
+        {
+            for(int dy = 0; dy < piece.Length; ++dy)
+            {
+                for(int dx = 0; dx < piece[dy].Length; ++dx)
+                {
+                    if(piece[dy][dx] && field[y + dy][x + dx]) { return false; }
+                }
+            }
+            return true;
+        }
+
+        /// <summary>Set value of the piece on the field (can mean add or remove piece from field)</summary>
+        private static void SetPiece(int y, int x, bool[][] piece, bool value)
+        {
+            for (int dy = 0; dy < piece.Length; ++dy)
+            {
+                for (int dx = 0; dx < piece[dy].Length; ++dx)
+                {
+                    if (piece[dy][dx]) { field[y + dy][x + dx] = value; }
+                }
+            }
+        }
+
+        private static void PrintSolution()
+        {
+            var cursor = (y: Console.CursorTop, x: 0);
+            if (cursor.y + FieldDimension + 1 >= Console.BufferHeight) { return; }
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.Write("Solution {0}", solutionCount);
+            for (int piece = 0; piece < pieces.Length; ++piece)
+            {
+                Console.BackgroundColor = colors[piece];
+                var p = pieces[piece][locations[piece].rotation];
+                for(int y = 0; y < p.Length; ++y)
+                {
+                    for(int x = 0; x < p[y].Length; ++x)
+                    {
+                        if (!p[y][x]) { continue; }
+                        Console.CursorLeft = cursor.x + x + locations[piece].x;
+                        Console.CursorTop = cursor.y + y + locations[piece].y;
+                        Console.Write(" ");
+                    }
+                }
+            }
+            Console.CursorLeft = cursor.x + FieldDimension + 1;
+            Console.CursorTop = cursor.y + FieldDimension + 1;
+            Console.WriteLine();
+        }
+
         static void Main(string[] args)
         {
-            FindSolutions(0);
+            var background = Console.BackgroundColor;
+            try { FindSolutions(0); }
+            finally { Console.BackgroundColor = background; }
+            Console.WriteLine("Found {0} solutions", solutionCount);
         }
     }
 }

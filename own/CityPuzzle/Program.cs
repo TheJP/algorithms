@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -162,9 +163,9 @@ namespace CityPuzzle
             for(int rotation = 0; rotation < pieces[piece].Length; ++rotation)
             {
                 bool[][] p = pieces[piece][rotation];
-                for (int y = 1; y < FieldDimension + 1 - p.Length + 1; ++y)
+                for (int y = 1; y <= FieldDimension - p.Length + 1; ++y)
                 {
-                    for(int x = 1; x < FieldDimension + 1 - p[0].Length + 1; ++x)
+                    for(int x = 1; x <= FieldDimension - p[0].Length + 1; ++x)
                     {
                         if (ValidLocation(y, x, p))
                         {
@@ -242,6 +243,45 @@ namespace CityPuzzle
             try { FindSolutions(0); }
             finally { Console.BackgroundColor = background; }
             Console.WriteLine("Found {0} solutions", solutionCount);
+            Export();
+        }
+
+        private static string[] htmlColors = new string[] {
+            "yellow", "magenta", "red", "cyan", "lime", "blue", "green", "light-blue", "orange", "black"
+        };
+
+        private static void Export()
+        {
+            using (var writer = new StreamWriter("result.html", false, Encoding.UTF8))
+            {
+                writer.WriteLine("<!doctype html>");
+                writer.WriteLine("<html><head><style>");
+                //Style
+                writer.WriteLine("</style></head><body>");
+                //Content
+                int i = 0;
+                foreach (var solution in solutions)
+                {
+                    writer.WriteLine("<h1>Solution {0}</h1>", ++i);
+                    var table = solution.Select((p, piece) => (y: p.y, x: p.x, rotation: p.rotation, Piece: piece))
+                        .SelectMany(p => pieces[p.Piece][p.rotation].SelectMany((row, dy) => row.Select((f, dx) => (y: p.y + dy, x: p.x + dx, Used: f, Piece: p.Piece))))
+                        .Where(f => f.Used)
+                        .ToDictionary(s => (y: s.y, x: s.x));
+                    writer.WriteLine("<table>");
+                    for(int y = 1; y <= FieldDimension; ++y)
+                    {
+                        writer.WriteLine("<tr>");
+                        for (int x = 1; y <= FieldDimension; ++x)
+                        {
+                            writer.WriteLine("<td style=\"background-color: {0}\"></td>", htmlColors[table.ContainsKey((y, x)) ? table[(y, x)].Piece : pieces.Length]);
+                        }
+                        writer.WriteLine("</tr>");
+                    }
+                    writer.WriteLine("</table>");
+
+                }
+                writer.WriteLine("</body></html>");
+            }
         }
     }
 }

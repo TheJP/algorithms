@@ -253,13 +253,16 @@ namespace CityPuzzle
         }
 
         private static string[] htmlColors = new string[] {
-            "yellow", "magenta", "red", "cyan", "lime", "blue", "green", "lightblue", "orange", "black"
+            //"yellow", "magenta", "red", "cyan", "lime", "blue", "green", "lightblue", "orange", "black"
+            //"#1d6914", "#ad2323", "#2a4bd7", "#814a19", "#8126c0", "#81c570", "#9dafff", "#29d0d0", "#ff9233", "black", "#ffee33", "#e9debb", "#ffcdf3"
+            //"#b58900", "#cb4b16", "#dc322f", "#d33682", "#6c71c4", "#268bd2", "#2aa198", "#859900", "gray", "black"
+            "#acd964", "#5ac8fa", "#ffcc00", "#ff9500", "#c0504d", "#007aff", "#ff3b30", "#8e8e93", "#ceced2", "#333"
         };
 
         private static int RotationAmount(int y, int x)
         {
             int result = 0;
-            while (y * 2 > FieldDimension + 1 || x * 2 > FieldDimension + 1)
+            while (y * 2 > FieldDimension + 1 || x * 2 > FieldDimension + 1 || (y * 2 == FieldDimension + 1 && x * 2 != FieldDimension + 1))
             {
                 ++result;
                 (y, x) = (x, -y + FieldDimension + 1);
@@ -278,6 +281,9 @@ namespace CityPuzzle
                 writer.WriteLine("<html><head><style>");
                 //Style
                 writer.WriteLine("td { width: 20px; height: 20px; }");
+                writer.WriteLine("table { border-spacing: 0; display: inline-block; }");
+                writer.WriteLine("h1 { font-family: Helvetica Neue,Helvetica,sans-serif; font-size: 18px; color: #333; }");
+                writer.WriteLine("div { width: 630px; margin: 0 auto;  page-break-after: always; }");
                 //Content
                 writer.WriteLine("</style></head><body>");
                 var htmlSolutions = solutions.Select(solution => solution.Select((p, piece) => (y: p.y, x: p.x, rotation: p.rotation, Piece: piece))
@@ -299,15 +305,19 @@ namespace CityPuzzle
                             for (int i = 0; i < solution.Rotation; ++i) { result = Rotate(result); }
                             return result;
                         });
-                    var groupedSolutions = rotatedSolutions.GroupBy(table => table.Single(entry => entry.Value == pieces.Length - 1).Key);
+                    var groupedSolutions = rotatedSolutions
+                        .GroupBy(table => table.Single(entry => entry.Value == pieces.Length - 1).Key)
+                        .OrderBy(group => group.Key.y)
+                        .ThenBy(group => group.Key.x);
                     foreach(var group in groupedSolutions)
                     {
-                        writer.WriteLine("<h1>{0} Count: {1}</h1>", group.Key, group.Count());
+                        writer.WriteLine("<div>");
+                        //writer.WriteLine("<h1>Count: {0}</h1>", group.Count());
                         foreach (var solution in group)
                         {
                             TableExport(solution);
-                            writer.WriteLine("<hr />");
                         }
+                        writer.WriteLine("</div>");
                     }
                 }
                 else

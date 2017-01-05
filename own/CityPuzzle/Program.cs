@@ -11,6 +11,8 @@ namespace CityPuzzle
     {
         private enum Rotations { No, Two, Four }
 
+        private static int previewSlowDown = 100;
+        private static bool showLifePreviewOnConsole = true;
         private static bool showSolutionsOnConsole = false;
         private const int FieldDimension = 7;
 
@@ -27,7 +29,7 @@ namespace CityPuzzle
         {
             ConsoleColor.White, ConsoleColor.Yellow, ConsoleColor.Magenta, ConsoleColor.Red,
             ConsoleColor.Cyan, ConsoleColor.Green, ConsoleColor.Blue, ConsoleColor.DarkGreen,
-            ConsoleColor.DarkRed
+            ConsoleColor.DarkRed, ConsoleColor.Black
         };
 
         //Create pieces in all needed rotations
@@ -175,8 +177,8 @@ namespace CityPuzzle
                     {
                         if (ValidLocation(y, x, p))
                         {
-                            SetPiece(y, x, p, true);
                             locations[piece] = (y, x, rotation);
+                            SetPiece(piece, true);
                             if (piece + 1 >= pieces.Length)
                             {
                                 //Found solution
@@ -185,7 +187,8 @@ namespace CityPuzzle
                                 if (showSolutionsOnConsole) { PrintSolution(); }
                             }
                             else { FindSolutions(piece + 1); }
-                            SetPiece(y, x, p, false);
+                            if (showLifePreviewOnConsole && previewSlowDown > 0) { System.Threading.Thread.Sleep(previewSlowDown); }
+                            SetPiece(piece, false);
                         }
                     }
                 }
@@ -206,25 +209,52 @@ namespace CityPuzzle
         }
 
         /// <summary>Set value of the piece on the field (can mean add or remove piece from field)</summary>
-        private static void SetPiece(int y, int x, bool[][] piece, bool value)
+        private static void SetPiece(int piece, bool value)
         {
-            for (int dy = 0; dy < piece.Length; ++dy)
+            var (y, x, rotation) = locations[piece];
+            var p = pieces[piece][rotation];
+            var cursor = (y: Console.CursorTop, x: Console.CursorLeft);
+            if (showLifePreviewOnConsole && cursor.y + FieldDimension + 1 >= Console.BufferHeight)
             {
-                for (int dx = 0; dx < piece[dy].Length; ++dx)
+                showLifePreviewOnConsole = false;
+                Console.WriteLine();
+                Console.WriteLine("Reached Buffer Limit - Turned off life preview");
+            }
+            if (showLifePreviewOnConsole)
+            {
+                Console.WriteLine("Solution {0}", solutionCount);
+                Console.BackgroundColor = value ? colors[piece] : ConsoleColor.Black;
+            }
+            for (int dy = 0; dy < p.Length; ++dy)
+            {
+                for (int dx = 0; dx < p[dy].Length; ++dx)
                 {
-                    if (piece[dy][dx]) { field[y + dy][x + dx] = value; }
+                    if (p[dy][dx])
+                    {
+                        field[y + dy][x + dx] = value;
+                        if (showLifePreviewOnConsole)
+                        {
+                            Console.CursorLeft = cursor.x + dx + locations[piece].x;
+                            Console.CursorTop = cursor.y + dy + locations[piece].y;
+                            Console.Write(" ");
+                        }
+                    }
                 }
             }
+            Console.CursorLeft = cursor.x;
+            Console.CursorTop = cursor.y;
+            Console.BackgroundColor = ConsoleColor.Black;
         }
 
         private static void PrintSolution()
         {
-            var cursor = (y: Console.CursorTop, x: 0);
+            var cursor = (y: Console.CursorTop, x: Console.CursorLeft);
             if (cursor.y + FieldDimension + 1 >= Console.BufferHeight) { return; }
             Console.BackgroundColor = ConsoleColor.Black;
-            Console.Write("Solution {0}", solutionCount);
+            Console.WriteLine("Solution {0}", solutionCount);
             for (int piece = 0; piece < pieces.Length; ++piece)
             {
+                if (locations[piece].x == 0) { break; } //0 means piece is not set (x and y are > 0)
                 Console.BackgroundColor = colors[piece];
                 var p = pieces[piece][locations[piece].rotation];
                 for(int y = 0; y < p.Length; ++y)
@@ -241,6 +271,7 @@ namespace CityPuzzle
             Console.CursorLeft = cursor.x + FieldDimension + 1;
             Console.CursorTop = cursor.y + FieldDimension + 1;
             Console.WriteLine();
+            Console.BackgroundColor = ConsoleColor.Black;
         }
 
         static void Main(string[] args)

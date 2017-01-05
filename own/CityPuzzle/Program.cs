@@ -99,6 +99,12 @@ namespace CityPuzzle
             {
                 { true, true }
             }, Rotations.Two),
+
+            //1 (Pin)
+            CreatePiece(new bool[,]
+            {
+                { true }
+            }, Rotations.No)
         };
 
         //Stores the location of pieces while searching solutions
@@ -243,44 +249,93 @@ namespace CityPuzzle
             try { FindSolutions(0); }
             finally { Console.BackgroundColor = background; }
             Console.WriteLine("Found {0} solutions", solutionCount);
-            Export();
+            Export(true);
         }
 
         private static string[] htmlColors = new string[] {
-            "yellow", "magenta", "red", "cyan", "lime", "blue", "green", "light-blue", "orange", "black"
+            "yellow", "magenta", "red", "cyan", "lime", "blue", "green", "lightblue", "orange", "black"
         };
 
-        private static void Export()
+        private static int RotationAmount(int y, int x)
+        {
+            int result = 0;
+            while (y * 2 > FieldDimension + 1 || x * 2 > FieldDimension + 1)
+            {
+                ++result;
+                (y, x) = (x, -y + FieldDimension + 1);
+            }
+            return result;
+        }
+
+        private static Dictionary<(int y, int x), int> Rotate(Dictionary<(int y, int x), int> table) =>
+            table.ToDictionary(entry => (entry.Key.x, -entry.Key.y + FieldDimension + 1), entry => entry.Value);
+
+        private static void Export(bool grouped = false)
         {
             using (var writer = new StreamWriter("result.html", false, Encoding.UTF8))
             {
                 writer.WriteLine("<!doctype html>");
                 writer.WriteLine("<html><head><style>");
                 //Style
-                writer.WriteLine("</style></head><body>");
+                writer.WriteLine("td { width: 20px; height: 20px; }");
                 //Content
-                int i = 0;
-                foreach (var solution in solutions)
+                writer.WriteLine("</style></head><body>");
+                var htmlSolutions = solutions.Select(solution => solution.Select((p, piece) => (y: p.y, x: p.x, rotation: p.rotation, Piece: piece))
+                    .SelectMany(p => pieces[p.Piece][p.rotation]
+                        .SelectMany((row, dy) => row.Select((f, dx) => (y: p.y + dy, x: p.x + dx, Used: f, Piece: p.Piece))))
+                    .Where(f => f.Used)
+                    .ToDictionary(f => (y: f.y, x: f.x), f => f.Piece));
+
+                if (grouped)
                 {
-                    writer.WriteLine("<h1>Solution {0}</h1>", ++i);
-                    var table = solution.Select((p, piece) => (y: p.y, x: p.x, rotation: p.rotation, Piece: piece))
-                        .SelectMany(p => pieces[p.Piece][p.rotation].SelectMany((row, dy) => row.Select((f, dx) => (y: p.y + dy, x: p.x + dx, Used: f, Piece: p.Piece))))
-                        .Where(f => f.Used)
-                        .ToDictionary(s => (y: s.y, x: s.x));
+                    //Rotate solutions to make grouping not dependend on rotation
+                    var rotatedSolutions = htmlSolutions.Zip(solutions
+                            .Select(solution => solution[pieces.Length - 1])
+                            .Select(pin => RotationAmount(pin.y, pin.x)),
+                            (table, rotation) => (Table: table, Rotation: rotation))
+                        .Select(solution =>
+                        {
+                            var result = solution.Table;
+                            for (int i = 0; i < solution.Rotation; ++i) { result = Rotate(result); }
+                            return result;
+                        });
+                    var groupedSolutions = rotatedSolutions.GroupBy(table => table.Single(entry => entry.Value == pieces.Length - 1).Key);
+                    foreach(var group in groupedSolutions)
+                    {
+                        writer.WriteLine("<h1>{0} Count: {1}</h1>", group.Key, group.Count());
+                        foreach (var solution in group)
+                        {
+                            TableExport(solution);
+                            writer.WriteLine("<hr />");
+                        }
+                    }
+                }
+                else
+                {
+                    int i = 0;
+                    foreach (var solution in htmlSolutions)
+                    {
+                        ++i;
+                        writer.WriteLine("<h1>Solution {0}</h1>", i);
+                        TableExport(solution);
+                    }
+                }
+                writer.WriteLine("</body></html>");
+
+                void TableExport(Dictionary<(int y, int x), int> table)
+                {
                     writer.WriteLine("<table>");
-                    for(int y = 1; y <= FieldDimension; ++y)
+                    for (int y = 1; y <= FieldDimension; ++y)
                     {
                         writer.WriteLine("<tr>");
-                        for (int x = 1; y <= FieldDimension; ++x)
+                        for (int x = 1; x <= FieldDimension; ++x)
                         {
-                            writer.WriteLine("<td style=\"background-color: {0}\"></td>", htmlColors[table.ContainsKey((y, x)) ? table[(y, x)].Piece : pieces.Length]);
+                            writer.WriteLine("<td style=\"background-color: {0}\"></td>", htmlColors[table.ContainsKey((y, x)) ? table[(y, x)] : pieces.Length]);
                         }
                         writer.WriteLine("</tr>");
                     }
                     writer.WriteLine("</table>");
-
                 }
-                writer.WriteLine("</body></html>");
             }
         }
     }

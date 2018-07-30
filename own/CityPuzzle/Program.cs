@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -187,6 +188,7 @@ namespace CityPuzzle
                                 solutions.Add(((int, int, int)[])locations.Clone());
                                 if (showSolutionsOnConsole) { PrintSolution(); }
                                 if (sleepAfterSolution > 0) { System.Threading.Thread.Sleep(sleepAfterSolution); }
+                                Console.WriteLine($"Solutions: {solutionCount} Average time: {(stopwatch.ElapsedMilliseconds / 1000.0) / solutionCount:0.0000}s");
                             }
                             else { FindSolutions(piece + 1); }
                             if (showLifePreviewOnConsole && previewSlowDown > 0) { System.Threading.Thread.Sleep(previewSlowDown); }
@@ -282,11 +284,37 @@ namespace CityPuzzle
 
         static void Main(string[] args)
         {
+            Measure();
+        }
+
+        private static void RunAndExport()
+        {
             var background = Console.BackgroundColor;
             try { FindSolutions(0); }
             finally { Console.BackgroundColor = background; }
             Console.WriteLine("Found {0} solutions", solutionCount);
             new Exporter().Export(pieces, solutions, true);
+        }
+
+        private readonly static Stopwatch stopwatch = new Stopwatch();
+        private static void Measure()
+        {
+            Array.Reverse(pieces);
+            previewSlowDown = 0;
+            sleepAfterSolution = 0;
+            showLifePreviewOnConsole = false;
+            showSolutionsOnConsole = false;
+            
+            stopwatch.Start();
+            int testAmount = 1;
+            for (int i = 0; i < testAmount; ++i)
+            {
+                solutions.Clear();
+                solutionCount = 0;
+                FindSolutions(0);
+            }
+            stopwatch.Stop();
+            Console.WriteLine($"Found {solutionCount} solutions {testAmount} times in {stopwatch.ElapsedMilliseconds / 1000.0:0.0000}s");
         }
     }
 }

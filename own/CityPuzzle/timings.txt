@@ -1,0 +1,2 @@
+Found 687 solutions 1k times in 1009.5660s (default)
+Solutions: 343 Average time: 71.8316s (if pieces were reversed)
